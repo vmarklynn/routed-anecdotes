@@ -69,9 +69,9 @@ const Footer = () => (
 )
 
 const CreateNew = (props) => {
-  const content = useField('text')
-  const author = useField('text')
-  const info = useField('text')
+  const { reset: clearContent, ...content } = useField('text')
+  const { reset: clearAuthor, ...author } = useField('text')
+  const { reset: clearInfo, ...info } = useField('text')
 
   const navigate = useNavigate()
 
@@ -84,6 +84,12 @@ const CreateNew = (props) => {
       votes: 0
     })
     navigate('/')
+  }
+
+  const handleClear = () => {
+    clearContent()
+    clearAuthor()
+    clearInfo()
   }
 
   return (
@@ -102,7 +108,8 @@ const CreateNew = (props) => {
           url for more info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button type='submit'>create</button>
+        <button type='button' onClick={handleClear}>clear</button>
       </form>
     </div>
   )
